@@ -17,8 +17,11 @@ services:
     image: mysql:latest
     ports:
       - "3306:3306"
+    volumes:
+      - ./docker/mysql/data:/var/lib/mysql
+      - ./docker/scripts:/docker-entrypoint-initdb.d
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: webapp
+      MYSQL_DATABASE: funkos
       MYSQL_USER: webapp
       MYSQL_PASSWORD: root
