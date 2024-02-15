@@ -8,7 +8,7 @@ include "tailwind.php";
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="/index.php" class="flex items-center space-x-3 rtl:space-x-reverse">
             <img src="/image.webp"
-                 class="h-8" alt="Flowbite Logo"/>
+                 class="h-8" alt="Funkos Logo"/>
             <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Funkos 2ºDAW</span>
         </a>
         <div class="hidden w-full md:block md:w-auto" id="navbar-default">
@@ -23,6 +23,10 @@ include "tailwind.php";
                         <a href="/create-funko.php"
                            class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-white md:p-0 dark:text-white md:dark:text-white">Crear
                             funkos</a>
+                    </li>
+                    <li>
+                        <a href="/categories.php"
+                           class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-white md:p-0 dark:text-white md:dark:text-white">Categorías</a>
                     </li>
                 <?php endif ?>
                 <?php if ($sessionService->loggedIn): ?>

@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'jlucki/docker-php-dev-env',
-        'pretty_version' => 'dev-master',
-        'version' => 'dev-master',
-        'reference' => '02e979381af2da5ff820641525d51de864ecd1ce',
+        'pretty_version' => '1.0.0+no-version-set',
+        'version' => '1.0.0.0',
+        'reference' => null,
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -29,9 +29,9 @@
             'dev_requirement' => false,
         ),
         'jlucki/docker-php-dev-env' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'reference' => '02e979381af2da5ff820641525d51de864ecd1ce',
+            'pretty_version' => '1.0.0+no-version-set',
+            'version' => '1.0.0.0',
+            'reference' => null,
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
