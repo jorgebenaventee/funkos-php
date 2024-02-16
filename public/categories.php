@@ -39,7 +39,7 @@ include 'header.php';
                     Activada
                 </th>
                 <th scope="col" class="text-center px-6 py-3">
-                    <span>Acciones</span>
+                    Acciones
                 </th>
             </tr>
             </thead>
