@@ -82,6 +82,10 @@ class FunkoService
         $uploadDir = Config::getInstance()->uploadPath;
         $imageName = $funko->id;
 
+        if (!file_exists($uploadDir)) {
+            mkdir($uploadDir, 0777, true);
+        }
+
         if (move_uploaded_file($image['tmp_name'], $uploadDir . $imageName)) {
             $sql = "UPDATE funkos SET image = :image WHERE id = :id";
             $stmt = $this->pdo->prepare($sql);
