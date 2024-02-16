@@ -19,10 +19,9 @@ include "header.php";
 
     <main class="min-h-screen grid grid-cols-4 p-4 bg-gray-900 gap-4 items-center justify-center">
         <?php foreach ($funkos as $funko): ?>
-            <div class="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-auto min-h-[410px]">
+            <div class="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-auto">
                 <a href="#" class="p-2">
-                    <img class="rounded block m-auto size-[150px]" src="<?= $funko->getImageUrl() ?>"
-                         alt=""/>
+                    <img class="rounded block m-auto" src="<?= $funko->getImageUrl() ?>" alt=""/>
                 </a>
                 <div class="p-5 min-w-[400px]">
                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
@@ -49,8 +48,7 @@ include "header.php";
                                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-violet-700 rounded-lg hover:bg-violet-800 focus:ring-4 focus:outline-none focus:ring-violet-300 dark:bg-violet-600 dark:hover:bg-violet-700 dark:focus:ring-violet-800">
                                 Actualizar imagen
                             </a>
-                            <a href="/remove-funko.php?id=<?= $funko->id ?>"
-                               onclick="return confirm('¿Seguro que quieres borrar el funko <?= $funko->name ?>?')"
+                            <a href="#"
                                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
                                 Borrar
                             </a>

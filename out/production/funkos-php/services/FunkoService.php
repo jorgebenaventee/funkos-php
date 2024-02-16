@@ -101,13 +101,7 @@ class FunkoService
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue('id', $id);
         $stmt->execute();
-        $rowCount = $stmt->rowCount();
-        if ($rowCount > 0) {
-            $uploadDir = Config::getInstance()->uploadPath;
-            $imageName = $id;
-            unlink($uploadDir . $imageName);
-        }
-        return $rowCount > 0;
+        return $stmt->rowCount() > 0;
     }
 
     public function getFunkoById(string $id): ?Funko
