@@ -23,13 +23,13 @@ include 'header.php';
 
 <main class="min-h-screen bg-gray-900 text-white">
     <h1 class="text-2xl text-center font-bold">Categorías</h1>
-    <div class="relative overflow-x-auto rounded mt-7">
+    <div class="flex max-w-2xl w-full m-auto justify-end">
+        <a href="/new-category.php"
+           class="text-white  bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Crear
+            categoría</a>
+    </div>
+    <div class="relative overflow-x-auto rounded mt-3">
         <table class="w-full max-w-2xl m-auto rounded text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <caption>
-                <a href="/new-category.php" class="font-medium text-blue-500 hover:underline text-right block p-4">Crear
-                    categoría</a>
-
-            </caption>
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="text-center px-6 py-3">
