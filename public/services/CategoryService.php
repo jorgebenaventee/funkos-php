@@ -12,7 +12,7 @@ class CategoryService
 
     private static $instance;
 
-    private function __construct(PDO $pdo)
+    public function __construct(PDO $pdo)
     {
         $this->pdo = $pdo;
     }
@@ -37,14 +37,7 @@ class CategoryService
         return $stmt->fetchAll(PDO::FETCH_CLASS);
     }
 
-    public function getCategory(string $name): ?Category
-    {
-        $stmt = $this->pdo->prepare("SELECT * FROM categories WHERE name = :name");
-        $stmt->bindValue('name', $name);
-        $stmt->execute();
-//        $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Category');
-        return $stmt->fetchObject(Category::class);
-    }
+
 
     public function getCategoryById(string $id)
     {

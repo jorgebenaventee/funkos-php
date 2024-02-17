@@ -10,7 +10,12 @@ require_once 'services/SessionService.php';
 require_once 'models/Funko.php';
 require_once 'config/Config.php';
 $funkoService = FunkoService::getInstance(Config::getInstance()->db);
-$funkos = $funkoService->getFunkos();
+if (!empty($_GET['search'])) {
+    $search = $_GET['search'];
+} else {
+    $search = null;
+}
+$funkos = $funkoService->getFunkos($search);
 $sessionService = SessionService::getInstance();
 $isAdmin = $sessionService->isAdmin ?? false;
 include "tailwind.php";
@@ -18,6 +23,20 @@ include "header.php";
 ?>
 
     <main class="min-h-screen grid grid-cols-4 p-4 bg-gray-900 gap-4 items-center justify-center">
+        <form class="col-span-4 flex flex-col items-center justify-center">
+            <div class="max-w-96">
+                <label for="search" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Filtrar por
+                    nombre</label>
+                <input type="text" id="search" name="search"
+                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                       placeholder="John Cena"/>
+                <button
+                        class="items-center w-full my-2 px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+
+                    Filtrar
+                </button>
+            </div>
+        </form>
         <?php foreach ($funkos as $funko): ?>
             <div class="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-auto min-h-[410px]">
                 <a href="#" class="p-2">

@@ -21,13 +21,16 @@ class FunkoService
 
     public function getFunkos(string $search = null): array
     {
-        $sql = "SELECT f.*, c.name as category_name FROM funkos f JOIN categories c ON f.category_id = c.id order by f.id";
+        $sql = "SELECT f.*, c.name as category_name FROM funkos f JOIN categories c ON f.category_id = c.id";
         if ($search) {
-            $sql .= " WHERE lower(f.name) LIKE %lower(:search)%";
+            $search = "%$search%";
+            $sql .= " WHERE f.name LIKE :search collate utf8mb4_general_ci";
         }
+
+        $sql .= ' order by f.id';
         $stmt = $this->pdo->prepare($sql);
         if ($search) {
-            $stmt->bindValue('search', "%$search%");
+            $stmt->bindValue('search', "$search", PDO::PARAM_STR);
         }
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, Funko::class);
