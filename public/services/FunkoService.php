@@ -6,6 +6,8 @@ use config\Config;
 use models\Funko;
 use PDO;
 
+require_once __DIR__ . '/../models/Funko.php';
+
 class FunkoService
 {
     private PDO $pdo;
@@ -21,14 +23,17 @@ class FunkoService
     {
         $sql = "SELECT f.*, c.name as category_name FROM funkos f JOIN categories c ON f.category_id = c.id";
         if ($search) {
-            $sql .= " WHERE lower(f.name) LIKE %lower(:search)%";
+            $search = "%$search%";
+            $sql .= " WHERE f.name LIKE :search collate utf8mb4_general_ci";
         }
+
+        $sql .= ' order by f.id';
         $stmt = $this->pdo->prepare($sql);
         if ($search) {
-            $stmt->bindValue('search', "%$search%");
+            $stmt->bindValue('search', "$search", PDO::PARAM_STR);
         }
         $stmt->execute();
-        $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'models\Funko');
+        $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, Funko::class);
         return $stmt->fetchAll();
     }
 
@@ -65,10 +70,24 @@ class FunkoService
     }
 
 
+    public function existsById($id)
+    {
+        $sql = "SELECT * FROM funkos WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue('id', $id);
+        $stmt->execute();
+        return $stmt->rowCount() > 0;
+    }
+
+
     public function updateImage(Funko $funko, $image)
     {
         $uploadDir = Config::getInstance()->uploadPath;
         $imageName = $funko->id;
+
+        if (!file_exists($uploadDir)) {
+            mkdir($uploadDir, 0777, true);
+        }
 
         if (move_uploaded_file($image['tmp_name'], $uploadDir . $imageName)) {
             $sql = "UPDATE funkos SET image = :image WHERE id = :id";
@@ -89,6 +108,22 @@ class FunkoService
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindValue('id', $id);
         $stmt->execute();
-        return $stmt->rowCount() > 0;
+        $rowCount = $stmt->rowCount();
+        if ($rowCount > 0) {
+            $uploadDir = Config::getInstance()->uploadPath;
+            $imageName = $id;
+            unlink($uploadDir . $imageName);
+        }
+        return $rowCount > 0;
+    }
+
+    public function getFunkoById(string $id): ?Funko
+    {
+        $sql = "SELECT f.*, c.name as category_name FROM funkos f JOIN categories c ON f.category_id = c.id WHERE f.id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue('id', $id);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, Funko::class);
+        return $stmt->fetch();
     }
 }

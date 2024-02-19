@@ -34,7 +34,7 @@ class UserService
         throw new Exception('Usuario o contraseña no válidos');
     }
 
-    public function findUserByUsername($username): ?User
+    private function findUserByUsername($username): ?User
     {
         $stmt = $this->db->prepare("SELECT * FROM users WHERE username = :username");
         $stmt->bindParam(':username', $username);
